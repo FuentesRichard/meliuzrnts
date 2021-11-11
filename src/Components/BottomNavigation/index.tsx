@@ -3,6 +3,7 @@ import React from 'react';
 import Home from '../../Screens/Home';
 import List from '../../Screens/List';
 import Contact from '../../Screens/Contact';
+import Details from '../../Screens/Details';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -31,7 +32,9 @@ const NavigationTabs = () => {
        options={{
         tabBarLabel: 'Listagem',
         tabBarIcon: () => (
-          <MaterialCommunityIcons name='clipboard-list-outline' color='pink' size={22}/>
+          <MaterialCommunityIcons 
+          name='clipboard-list-outline' 
+          color='pink' size={22}/>
         )
       }}
       component={List} />
@@ -39,10 +42,24 @@ const NavigationTabs = () => {
        options={{
         tabBarLabel: 'Contato',
         tabBarIcon: () => (
-          <MaterialCommunityIcons name='card-account-mail-outline' color='pink' size={22}/>
+          <MaterialCommunityIcons 
+          name='card-account-mail-outline' 
+          color='pink' 
+          size={22}/>
         )
       }}
       component={Contact} />
+      <Tabs.Screen name="Detalhes" 
+       options={{
+        tabBarLabel: 'Detalhes',
+        tabBarIcon: () => (
+          <MaterialCommunityIcons 
+          name='information-outline' 
+          color='pink' 
+          size={22}/>
+        )
+      }}
+      component={Details} />
     </Tabs.Navigator>
   );
 };

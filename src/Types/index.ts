@@ -20,4 +20,11 @@ export interface IPosition {
       state: string;
     };
   }
+
+  export interface IListStoreDetails {
+      store: number;    
+      expires_in: Date;
+      value: number;
+      storeDetails?: IList;
+  }
   
