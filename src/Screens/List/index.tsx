@@ -29,7 +29,7 @@ const List: React.FC = () => {
   useEffect(() => {
     api.get('stores').then(response => {
       setList(response.data);
-    }).catch( e => console.error(e) );
+    });
   }, []);
 
   return (

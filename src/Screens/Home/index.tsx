@@ -1,15 +1,10 @@
 import React from 'react';
-
-import {
-  View, 
-  StyleSheet, 
-  Image
-} from 'react-native';
+import {View, StyleSheet, Image} from 'react-native';
 
 const Home: React.FC = () => {
   return (
     <View style={styles.default}>
-        <Image source={require('../../Assets/images/desconto.png')} />
+      <Image source={require('../../Assets/Images/desconto.png')} />
     </View>
   );
 };
