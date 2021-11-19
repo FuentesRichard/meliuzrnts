@@ -1,13 +1,18 @@
 import React, {useState, useEffect} from 'react';
-
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import MapView, {Marker, Callout} from 'react-native-maps';
-// import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useNavigation} from '@react-navigation/native';
 import api from '../../Services/api';
 import {IPosition, IList} from '../../Types';
+import {setNewStoreID} from '../../Store/Modules/ListDetails/Actions';
+import {IGlobalStoreId} from '../../Store/Modules/ListDetails/Types';
 
 const List: React.FC = () => {
-  const [position, setPosition] = useState<IPosition>({
+  const dispatch = useDispatch();
+  const nav = useNavigation();
+
+  const [position] = useState<IPosition>({
     latitude: -23.673081449999998,
     longitude: -46.677047406643354,
     latitudeDelta: 0.0911,
@@ -15,15 +20,12 @@ const List: React.FC = () => {
   });
   const [list, setList] = useState<IList[]>([]);
 
-  console.log('Store', list);
-
-  const handlePosition = () => {
-    setPosition({
-      latitude: -23.673081449999998,
-      longitude: -46.677047406643354,
-      latitudeDelta: 0.0911,
-      longitudeDelta: 0.0411,
-    });
+  const handleStoreDetails = (val: number, screen: any) => {
+    const newStore: IGlobalStoreId = {
+      store_id: val,
+    };
+    dispatch(setNewStoreID(newStore));
+    nav.navigate(screen);
   };
 
   useEffect(() => {
@@ -35,16 +37,20 @@ const List: React.FC = () => {
   return (
     <View style={styles.default}>
       <MapView style={styles.mapStyle} initialRegion={position}>
-        {list.map(store => (
+        {list.map(item => (
           <Marker
-            key={store.id}
+            key={item.id}
             coordinate={{
-              latitude: store.localization.lat,
-              longitude: store.localization.lng,
+              latitude: item.localization.lat,
+              longitude: item.localization.lng,
             }}>
-            <Callout onPress={handlePosition}>
-              <View>
-                <Text>{store.label}</Text>
+            <Callout>
+              <View style={styles.calloutStyle}>
+                <Text style={styles.calloutTitle}>{item.label}</Text>
+                <TouchableOpacity
+                  onPress={() => handleStoreDetails(item.id, 'Detalhes')}>
+                  <Text>Ver mais</Text>
+                </TouchableOpacity>
               </View>
             </Callout>
           </Marker>
@@ -63,6 +69,15 @@ const styles = StyleSheet.create({
   mapStyle: {
     height: '100%',
     width: '100%',
+  },
+  calloutStyle: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  calloutTitle: {
+    fontWeight: 'bold',
+    color: '#81002b',
+    fontSize: 15,
   },
 });
 
