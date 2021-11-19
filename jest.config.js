@@ -16,5 +16,5 @@ module.exports = {
         "node_modules/(?!(@?react-native|react-native-maps|@react-navigation|react-native-vector-icons)/)"
     ],
     collectCoverage: true,
-    collectCoverageFrom: ["src/**/.(ts|tsx)", "!src/Store/**/*.ts"],
+    collectCoverageFrom: ["src/**/*/ts", "src/**/*.tsx", "!src/Store/**/*.ts"],
   };
